@@ -102,12 +102,13 @@ activity.
 When the activity is complete, it calls `setResult()` with an `Intent`. This
 `Intent` must have extra
 `io.buttplug.android.intent.extra.CLIENT_TO_SERVER_V1_SERVICE`, and may have
-optional extra `io.buttplug.android.intent.extra.CLIENT_TO_SERVER_V1_MESSAGE`.
-The `SERVICE` extra is an explicit `Intent` that can be used to bind to the
-service. The `MESSAGE` extra is the `Message` that should be sent to the
-service when the client wishes to connect. This extra may be used to include
-additional metadata in the `Message`, such as a websocket address that was
-selected in the activity.
+optional extra
+`io.buttplug.android.intent.extra.CLIENT_TO_SERVER_V1_CONNECT_MESSAGE`. The
+`SERVICE` extra is an explicit `Intent` that can be used to bind to the
+service. The `CONNECT_MESSAGE` extra is the `Message` that should be sent to
+the service when the client wishes to connect. This extra may be used to
+include additional metadata in the `Message`, such as a websocket address that
+was selected in the activity.
 
 When the client app receives the `Service` information, it checks the
 permission on the `Service` (if any), and if the client app doesn't have the
