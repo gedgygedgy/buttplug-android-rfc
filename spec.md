@@ -86,7 +86,32 @@ one or more selector `Activity`s and one or more `Service`s.
 
 ## Selecting a `Service`
 
-TODO
+Server apps should export an `Activity` with an `intent-filter` for intent
+`io.buttplug.android.intent.action.SELECT_CLIENT_TO_SERVER_V1_SERVICE`. The
+`V1` suffix represents the version of the Android transport to allow for future
+improvement on this protocol, and is unrelated to the Buttplug protocol
+version.
+
+When a client app wishes to connect to a server app, it searches the
+`PackageManager` for `Activity`s that match the intent filter (it can also use
+`Intent.ACTION_CHOOSER` or `Intent.ACTION_PICK_ACTIVITY` for this purpose.) It
+checks the permission on the `Activity` (if any), and if the client app doesn't
+have the permission, it requests it from the user. It then launches the
+activity.
+
+When the activity is complete, it calls `setResult()` with an `Intent`. This
+`Intent` must have extra
+`io.buttplug.android.intent.extra.CLIENT_TO_SERVER_V1_SERVICE`, and may have
+optional extra `io.buttplug.android.intent.extra.CLIENT_TO_SERVER_V1_MESSAGE`.
+The `SERVICE` extra is an explicit `Intent` that can be used to bind to the
+service. The `MESSAGE` extra is the `Message` that should be sent to the
+service when the client wishes to connect. This extra may be used to include
+additional metadata in the `Message`, such as a websocket address that was
+selected in the activity.
+
+When the client app receives the `Service` information, it checks the
+permission on the `Service` (if any), and if the client app doesn't have the
+permission, it requests it from the user.
 
 ## Binding a `Service`
 
